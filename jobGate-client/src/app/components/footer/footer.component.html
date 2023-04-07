@@ -1,0 +1,158 @@
+<footer>
+    <div class="container text-white">
+
+        <div class="subscribe-area">
+            <div class="section-title">
+                <h2>Subscribe Newsletter</h2>
+            </div>
+            <div class="subscribe-shape">
+                <img src="assets/img/shape/1.png" alt="Shape">
+                <img src="assets/img/shape/1.png" alt="Shape">
+                <img src="assets/img/shape/1.png" alt="Shape">
+                <img src="assets/img/shape/1.png" alt="Shape">
+                <img src="assets/img/shape/2.png" alt="Shape">
+            </div>
+            <div class="subscribe-item">
+                <form [formGroup]="subscriberForm" class="newsletter-form" data-toggle="validator">
+                    <input  formControlName="email" type="email" class="form-control" placeholder="Enter Your Email" name="EMAIL" required
+                        autocomplete="off">
+                    <button class="btn subscribe-btn" type="submit" (click)="subscribe()">
+                        Subscribe
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-3">
+                <div class="footer-item">
+                    <div class="footer-logo">
+                        <a routerLink="/" >
+                            <img src="assets/img/jobgateLogo.png" alt="Logo">
+                        </a>
+                        <p>Are you looking for a job (temporary, full time or part -time), or student internship? Is your CV ready? So welcome to Jobgate.</p>
+                        <ul>
+                            <li>
+                                <a href="https://www.youtube.com/" target="_blank">
+                                    <i class="icofont-youtube-play"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class="icofont-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class="icofont-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class="icofont-twitter"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6 col-lg-4">
+                <div class="footer-item">
+                    <div class="footer-category">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li>
+                                <a routerLink="/">
+                                    <i class="icofont-simple-right"></i>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/about">
+                                    <i class="icofont-simple-right"></i>
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/candidates">
+                                    <i class="icofont-simple-right"></i>
+                                    Candidates
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/companies">
+                                    <i class="icofont-simple-right"></i>
+                                    Companies
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="job-list">
+                                    <i class="icofont-simple-right"></i>
+                                    Jobs
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="footer-item">
+                    <div class="footer-find">
+                        <h3>Find Us</h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-location-pin"></i>
+                                12 Bd Abdelkader Daghrir, Sousse 4011
+                            </li>
+                            <li>
+                                <i class="icofont-ui-call"></i>
+                                <a href="tel:+880123456789">
+                                    +216 36 069 039
+                                </a>
+                            </li>
+                            <li>
+                                <i class="icofont-ui-email"></i>
+                                <a
+                                    href="javascript:void(0)">
+                                    <span class="__cf_email__"
+                                        data-cfemail="80e8e5ececefc0e7e1e2ece5aee3efed">contact@jobgate.tn</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="copyright-item">
+                        <p>Copyright ©
+                            <script data-cfasync="false"
+                                src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                            <script>document.write(new Date().getFullYear())</script> Jobgate. Designed By <a
+                                href="https://www.linkedin.com/in/sabri-ghiloufi/" target="_blank">Ghiloufi Sabri</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="copyright-item copyright-right">
+                        <ul>
+                            <li>
+                                <a href="terms-and-conditions.html" target="_blank">Terms & Conditions</a>
+                            </li>
+                            <li>
+                                <span>-</span>
+                            </li>
+                            <li>
+                                <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

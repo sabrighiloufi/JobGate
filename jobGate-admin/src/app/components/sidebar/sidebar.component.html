@@ -1,0 +1,94 @@
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a routerLink="/dashboard" aria-expanded="false">
+                <i class="flaticon-381-home-2"></i>
+                <span class="nav-text">Dashboard</span>
+                </a>
+                <ul style="display: none;" >
+                    
+                </ul>
+            </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-calendar"></i>
+                <span class="nav-text">Companies</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a routerLink="/dashboard/companies" >confirmed <button  class="badge badge-xs badge-circle badge-success ">{{confirmedCompanies.length}}</button> </a>   </li>
+                    <li><a routerLink="/dashboard/confirm-companies">Unconfirmed  <button  class="badge badge-xs badge-circle badge-danger ">{{unconfirmedCompanies.length}}</button></a></li>
+                </ul>
+                
+            </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-menu-1"></i>
+                <span class="nav-text">Jobs</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a routerLink="/dashboard/jobs" >confirmed <button  class="badge badge-xs badge-circle badge-success ">{{confirmedJobs.length}}</button> </a>   </li>
+                    <li><a routerLink="/dashboard/confirm-jobs">Unconfirmed  <button  class="badge badge-xs badge-circle badge-danger ">{{unConfirmedJobs.length}}</button></a></li>
+                </ul>
+            </li>
+            <li><a routerLink="/dashboard/application" aria-expanded="false">
+                <i class="flaticon-381-app"></i>
+                <span class="nav-text">Applications</span>
+                </a>
+                <ul style="display: none;" >
+                    
+                </ul>
+            </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-diploma"></i>
+                <span class="nav-text">Contract Types</span>
+            </a>
+            <ul aria-expanded="false">
+                <li><a routerLink="/dashboard/contract">Contract Types List</a></li>
+                <li><a routerLink="/dashboard/add-contract">Add Contract Types</a></li>
+            </ul>
+        </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-settings-8"></i>
+                <span class="nav-text">Skills</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a routerLink="/dashboard/skills">Skills List</a></li>
+                    <li><a routerLink="/dashboard/add-skills">Add Skills</a></li>
+                </ul>
+            </li>
+
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-locations"></i>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a routerLink="/dashboard/locations">Locations List</a></li>
+                    <li><a routerLink="/dashboard/add-location">Add Location</a></li>
+                </ul>
+            </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-layer"></i>
+                    <span class="nav-text">categories</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a routerLink="/dashboard/categories">Categories List</a></li>
+                    <li><a routerLink="/dashboard/add-category">Add category</a></li>
+                </ul>
+            </li>
+            <li class="has-menu"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-layer-1"></i>
+                <span class="nav-text">Specialties</span>
+            </a>
+            <ul aria-expanded="false">
+                <li><a routerLink="/dashboard/specialties">Specialties List</a></li>
+                <li><a routerLink="/dashboard/add-speciality">Add Speciality</a></li>
+            </ul>
+        </li>
+            
+           
+        </ul>
+        
+        <div class="copyright">
+            <p><strong>jobgate Dashboard</strong> © {{year}} All Rights Reserved</p>
+            <p>by Ghiloufi Sabri</p>
+        </div>
+    </div>
+</div>

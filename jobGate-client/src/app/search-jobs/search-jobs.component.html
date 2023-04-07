@@ -1,0 +1,131 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Search Jobs</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Search Jobs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="error-area" *ngIf="jobs?.length <= 0">
+    <div class="error-item">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="error-text">
+                    <h1>404!</h1>
+                    <p>Sorry! No Job found for Searching: '{{query}}' </p>
+                    <span>Oops! The page you are looking for does not exit.</span>
+                    <a routerLink="/">Return to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="job-area ptb-100"  *ngIf="jobs?.length > 0">
+    <div class="container">
+        <div class="section-title">
+            <h2>Search result : '{{query}}'</h2>
+        </div>
+
+        <div id="container">
+            <div class="row">
+
+                <div class="col-lg-6 mix web ui"
+                    *ngFor="let job of jobs | paginate: { itemsPerPage: 6, currentPage: p }">
+                    <div class="job-item">
+                        <!-- http://localhost:4000/getImage/{{job.company.image}} -->
+                        <img src="http://localhost:4000/getImage/{{job.company.image}}" width="50" height="50"
+                            alt="Job">
+                        <div class="job-inner align-items-center">
+                            <div class="job-inner-left">
+                                <h3>
+                                    <a [routerLink]="['/job-details', job._id]">{{job.title}}</a>
+
+
+                                </h3>
+                                <a class="company"
+                                    [routerLink]="['/company-details', job.company._id]">{{job.company.fullname}}</a>
+                                <ul>
+                                    <li>
+                                        <i class="icofont-money-bag"></i>
+                                        {{job.salary}}
+                                    </li>
+                                    <li>
+                                        <i class="icofont-calendar"></i>
+                                        {{job.createdAt | date }}
+                                    </li>
+                                    <li>
+                                        <i class="icofont-location-pin"></i>
+                                        {{job.location.address}}, {{job.location.city}}, {{job.location.country}}
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="job-inner-right">
+
+                                <ul>
+
+                                    <li>
+                                        <a *ngIf="job?.test; else whithoutTest" type="button"
+                                            [routerLink]="['/test', job._id]"><i class="icofont-list"></i> Apply</a>
+                                        <ng-template #whithoutTest>
+                                            <a (click)="selectJob(job._id)" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">Apply</a>
+                                        </ng-template>
+                                    </li>
+                                    <li>
+                                        <span>{{job.type}}</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center paginator text-dark">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Modal -->
+<!-- Modal -->
+<div *ngIf="user" class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload cv</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="appForm">
+                    Upload CV
+                    <input name="cv" (change)="handleFileInput($event)" type="file" class="form-control mt-2">
+                    Letter:
+                    <textarea formControlName="letter" rows="5" class="form-control mt-2"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" (click)="ApplyToJob()" data-bs-dismiss="modal" class="btn btn-success">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>

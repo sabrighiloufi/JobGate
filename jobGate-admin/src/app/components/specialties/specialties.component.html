@@ -1,0 +1,90 @@
+<div class="content-body" style="min-height: 788px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a routerLink="/dashboard">JobGate</a></li>
+                <li class="breadcrumb-item"><a>Specialties</a></li>
+            </ol>
+        </div> 
+        <div class="d-flex flex-wrap mb-4 row">
+            <div class="col-xl-3 col-lg-4 mb-2">
+                <h6 class="text-black fs-16 font-w600 mb-1">Showing {{specialties.length}} specialties</h6>
+            </div>
+            
+            <div class="col-xl-9 col-lg-8 d-flex flex-wrap">
+                <div class="me-auto">
+                    <a class="btn btn-primary light btn-rounded me-2 mb-2" (click)="getspecialties()" >All Categories</a>            
+                    <a *ngFor="let category of categories" class="btn btn-primary light btn-rounded me-2 mb-2" (click)="getByCategories(category._id)">{{category.name}}</a>
+                
+                </div>
+               </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="table-responsive">
+                    <div id="example5_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table display mb-4 dataTablesCard table-responsive card-table dataTable no-footer" id="example5" role="grid" aria-describedby="example5_info">
+                        <thead>
+                            <tr role="row">
+                                
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="ID: activate to sort column ascending" style="width: 133.9844px;">ID</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Date Applied: activate to sort column ascending" style="width: 134.984px;">Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Date Applied: activate to sort column ascending" style="width: 134.984px;">description</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Date Applied: activate to sort column ascending" style="width: 134.984px;">category</th>
+
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 133.312px;">Action</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            
+                         
+                        <tr role="row" class="odd" *ngFor="let Speciality of specialties | paginate: { itemsPerPage: 5, currentPage: p } ; let index= index">
+                                
+                                <td>#{{index+1}}</td>
+                                <td>{{Speciality.name }}</td>
+                                <td>{{Speciality.description }}</td>
+                                <td>{{Speciality.category.name }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a (click)="setSpecialityToUpdate(Speciality)" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                        <a (click)="deleteSpeciality(Speciality._id)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                    </div>	
+                                </td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <pagination-controls class="pagination justify-content-center" (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicModal" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form [formGroup]="specialityForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Contract</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="name">Speciality Name</label>
+                <input formControlName="name" type="text" id="name" class="form-control input-default">
+                <label class=" mt-5" for="description">Speciality Description</label>
+                <textarea formControlName="description" type="text" id="description"  class="form-control input-default"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button  (click)="updateSpeciality()" data-bs-dismiss="modal" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

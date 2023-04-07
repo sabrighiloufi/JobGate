@@ -1,0 +1,107 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Company Details</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Company Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="company-details-area pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="company-details-item">
+                    <div class="company-details-logo">
+                        <img src="http://localhost:4000/getImage/{{company?.image}}" alt="Logo">
+                        <div class="company-logo-inner">
+                            <h3>{{company?.fullname}}</h3>
+                            <p><i class="icofont-location-pin"></i>{{company?.address}}</p>
+                        </div>
+                    </div>
+                    <div class="company-details-share">
+                        <span>Share:</span>
+                        <ul>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <i class="icofont-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/" target="_blank">
+                                    <i class="icofont-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <i class="icofont-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/" target="_blank">
+                                    <i class="icofont-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="company-details-find">
+                        <h3>Find Us:</h3>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-web"></i>
+                                    {{company?.website}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-email"></i>
+                                   {{company?.email}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-phone"></i>
+                                    {{company?.phone}}
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="company-details-description">
+                        <h3>Description</h3>
+                        <p>{{company?.description}}</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="company-details-item">
+                    <div class="pricing-item wow fadeInUp animated" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s;">
+                        <h4>Company Category</h4>
+                        
+                        <a class="pricing-btn" href="javascript:void(0)">{{company?.speciality.category.name}}</a>
+                        </div>
+                        <div class="pricing-item wow fadeInUp animated" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s;">
+                            <h4>Company Speciality</h4>
+                            
+                            <a class="pricing-btn" href="javascript:void(0)">{{company?.speciality.name}}</a>
+                            </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

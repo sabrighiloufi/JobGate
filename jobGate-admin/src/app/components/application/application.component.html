@@ -1,0 +1,102 @@
+<div class="content-body" style="min-height: 788px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a routerLink="/dashboard">JobGate</a></li>
+                <li class="breadcrumb-item"><a>Applications</a></li>
+            </ol>
+        </div> 
+        <div class="d-flex flex-wrap mb-4 row">
+            <div class="col-xl-3 col-lg-4 mb-2">
+                <h6 class="text-black fs-16 font-w600 mb-1">Showing {{apps.length}} Applicants</h6>
+            </div>
+            
+            <div class="col-xl-9 col-lg-8 d-flex flex-wrap">
+                <div class="me-auto">
+                    <a class="btn btn-primary light btn-rounded me-2 mb-2" (click)="getApps()" >All specialties</a>            
+                    <a *ngFor="let spec of specialties" class="btn btn-primary light btn-rounded me-2 mb-2" (click)="getBySpecialties(spec._id)" >{{spec.name}}</a>
+                
+                </div>
+               </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="table-responsive">
+                    <div id="example5_wrapper" class="dataTables_wrapper no-footer"><table class="table display mb-4 dataTablesCard table-responsive-xl card-table dataTable no-footer" id="example5" role="grid" aria-describedby="example5_info">
+                        <thead>
+                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+  
+                                : activate to sort column descending" style="width: 26px;">
+                                    <div class="checkbox me-0 align-self-center">
+                                        <div class="form-check custom-checkbox mb-3 check-xs">
+                                            <input type="checkbox" class="form-check-input" checked="" id="checkAll" required="">
+                                            <label class="form-check-label" for="checkAll"></label>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="ID: activate to sort column ascending" style="width: 62.9844px;">ID</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Date Applied: activate to sort column ascending" style="width: 134.984px;">Date Applied</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Company: activate to sort column ascending" style="width: 215.422px;">Job</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 84.0312px;">Candidate</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Postition: activate to sort column ascending" style="width: 110.266px;">Score</th>
+                                <th class="sorting" tabindex="0" aria-controls="example5" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 133.312px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                         
+                        <tr role="row" class="odd" *ngFor="let app of apps | paginate: { itemsPerPage: 5, currentPage: p } ; let index= index">
+                                <td class="sorting_1">
+                                    <div class="checkbox me-0 align-self-center">
+                                        <div class="form-check custom-checkbox mb-3 check-xs">
+                                            <input type="checkbox" class="form-check-input" checked="" id="check1" required="">
+                                            <label class="form-check-label" for="check1"></label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>#{{index+1}}</td>
+                                <td>{{app.createdAt | date:'medium' }}</td>
+                                <td>
+                                    <div class="media">
+                                        <img class="me-3" width="50" height="50" viewBox="0 0 50 50" fill="none" src="http://localhost:4000/getImage/{{app.offer.company.image}}">
+                                        
+                                        <div class="media-body text-nowrap">
+                                            <h6 class="text-black font-w600 fs-16 mb-0">{{app.offer.title}}</h6>
+                                            <span class="fs-14">{{app.offer.speciality.name}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{app.candidate.fullname}}</td>
+                                <td>{{app.score}}</td>
+                                
+                                <td>
+                                    <div class="">
+                                        <a *ngIf="app.score>=50" class="btn btn-rounded btn-outline-dark me-3 ms-auto" href="#">Pending</a>
+                                        <a *ngIf="app.score<50" class="btn btn-rounded btn-outline-danger me-3 ms-auto" href="#">Refused</a>
+
+                                        <div class="dropdown float-right custom-dropdown mb-0">
+                                            <div class="" data-bs-toggle="dropdown">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0);">Details</a>
+                                                <a class="dropdown-item text-danger" href="javascript:void(0);">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls class="pagination justify-content-center" (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Job List</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Job List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="job-area job-area-two pt-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="login-wrap">
+                <div class="row ">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="flaticon-job-search"></i>
+                            </div>
+                            <div class="jobseeker-inner text-white">
+                                <span>Search Job</span>
+                                <input [(ngModel)]="searchjob" type="text" class="form-control"
+                                    placeholder="Search By Title, Location, Speciality, ...">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="icofont-filter"></i>
+                            </div>
+                            <div class="jobseeker-inner text-white">
+                                <span>Job Type</span>
+                                <select (change)="getByType($event)" class="form-control">
+                                    <option value="all">All</option>
+                                    <option value="Fulltime">Full Time</option>
+                                    <option value="Part time">Part Time</option>
+                                    <option value="freelance">Freelance</option>
+                                    <option value="remote">Remote</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="single-resume-item">
+                    <div class="single-resume-category">
+                        <h3>Job Categories</h3>
+                        <ul>
+                            <li *ngFor="let category of categories">
+                                <a href="javascript:void(0)"
+                                    (click)="getSpecialties(category._id)">{{category.name}}</a>
+                                <span>({{category.specialties.length}})</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="single-resume-category" *ngIf="showSpecialties">
+                        <h3>Job Specialties <button type="submit" class="btn " (click)="hideSpecialties()"><i
+                                    class="icofont-ui-close"></i></button></h3>
+
+                        <ul>
+                            <li *ngFor="let speciality of specialties">
+                                <a href="javascript:void(0)"
+                                    (click)="getJobsBySpeciality(speciality._id)">{{speciality.name}}</a>
+                                <span>({{ confirmedJobsInSpec(speciality.offers)}})</span>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <!-- <div  *ngIf="jobs?.length <= 0">
+                    <section class="error-area">
+                        <div class="error-item">
+                            <div class="d-table">
+                                <div class="d-table-cell">
+                                    <div class="error-text">
+                                        <h1>404!</h1>
+                                        <p>Sorry! No job Found</p>
+                                        <span>Oops!  The job you are looking for does not exit.</span>
+                                        <a routerLink="/">Return to Home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div> -->
+                <div *ngFor="let job of jobs | searchjobs: searchjob | paginate: { itemsPerPage: 6, currentPage: p }">
+                    <div class="job-item">
+                        <!-- http://localhost:4000/getImage/{{job.company.image}} -->
+                        <img src="http://localhost:4000/getImage/{{job.company.image}}" width="50" height="50"
+                            alt="Job">
+                        <div class="job-inner align-items-center">
+                            <div class="job-inner-left">
+                                <h3>
+                                    <a [routerLink]="['/job-details', job._id]">{{job.title}}</a> &nbsp; <button
+                                        type="button" (click)="addToFavourite(job._id)" *ngIf="isCandidate()"
+                                        class="btn btn-danger btn-circle"><i class="icofont-heart-alt"></i></button>
+
+
+                                </h3>
+                                <a class="company"
+                                    [routerLink]="['/company-details', job.company._id]">{{job.company.fullname}}</a>
+                                <ul>
+                                    <li>
+                                        <i class="icofont-money-bag"></i>
+                                        {{job.salary}}
+                                    </li>
+                                    <li>
+                                        <i class="icofont-calendar"></i>
+                                        {{job.createdAt | date }}
+                                    </li>
+                                    <li>
+                                        <i class="icofont-location-pin"></i>
+                                        {{job.location.address}}, {{job.location.city}}, {{job.location.country}}
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="job-inner-right">
+
+                                <ul>
+
+                                    <li>
+                                        <a *ngIf="job?.test; else whithoutTest" type="button"
+                                            [routerLink]="['/test', job._id]"><i class="icofont-list"></i> Apply</a>
+                                        <ng-template #whithoutTest>
+                                            <a (click)="selectJob(job._id)" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">Apply</a>
+                                        </ng-template>
+                                    </li>
+                                    <li>
+                                        <span>{{job.type}}</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center paginator text-dark">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+*ngIf="user"<div  class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload cv</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="appForm">
+                    Upload CV
+                    <input name="cv" (change)="handleFileInput($event)" type="file" class="form-control mt-2">
+                    Letter:
+                    <textarea formControlName="letter" rows="5" class="form-control mt-2"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" (click)="ApplyToJob()" data-bs-dismiss="modal" class="btn btn-success">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="page-title-area">
+  <div class="d-table">
+    <div class="d-table-cell">
+      <div class="container">
+        <div class="page-title-text">
+          <h2>Manage Jobs</h2>
+          <ul>
+            <li>
+              <a routerLink="/">Home</a>
+            </li>
+            <li>
+              <i class="icofont-simple-right"></i>
+            </li>
+            <li>Manage Jobs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<section class="job-area job-area-two pt-100">
+  <div class="container">
+    <div class="text-center pb-5">
+      <h2> Your Posted Jobs</h2>
+    </div>
+    
+    <div class="row ">
+      <div class="col-sm-6 col-lg-6"></div>
+      <div class="col-sm-6 col-lg-6">
+        <div class="jobseeker-item">
+          <div class="jobseeker-icon">
+            <i class="flaticon-job-search"></i>
+          </div>
+          <div class="jobseeker-inner text-white">
+            <span>Search Job</span>
+            <input [(ngModel)]="searchjob" type="text" class="form-control" placeholder="Search By Title, Location, Speciality, ...">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="row mt-3">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Applications</th>
+            <th scope="col">Expiration Date</th>
+            <th scope="col">status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let job of myjobs  | searchjobs: searchjob | paginate: { id: 'paginator1',  itemsPerPage: 10, currentPage: p } ; let index = index">
+            <th scope="row">{{index+1}}</th>
+            <td>{{job.title}}</td>
+            <td><a type="button" (click)="getApplications(job.applications)"><span style="color:limegreen">({{job.applications.length}}) Applications</span></a></td>
+            <td>{{job.expiration_date }}</td>
+            <td>
+              <button type="button" (click)="viewMyJob(job)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="color: limegreen;" class="btn me-md-2 "><i class="icofont-edit"></i></button>
+              <button (click)="deleteJob(job._id)" type="button" style="color: red;" class="btn  btn-xs"><i
+                  class="icofont-ui-delete"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center paginator text-dark">
+        <pagination-controls  id="paginator1" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    </div>
+    
+    <div class="row mt-5 justify-content-center" *ngIf="showApps">
+      <div class="col-8">
+      <div class="text-center pb-5">
+        <h2> Job Applications</h2>
+      </div>
+      <table class="table ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">candidate</th>
+            <th scope="col">score</th>
+            <th scope="col">status</th>
+            <th scope="col">letter</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of apps  | paginate: {id: 'paginator2', itemsPerPage: 10, currentPage: appPage } ; let index = index">
+            <th scope="row">{{index+1}}</th>
+            <td><a [routerLink]="['/candidate-profile', app.candidate._id]" class="link-info" ><span >{{app.candidate.fullname}} </span></a></td>
+            <td>{{app.score}}</td>
+            <td>{{app.status}}</td>
+            <td><a (click)="getLetter(this.app.letter)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">View<i class="icofont-eye-alt"></i></a></td>
+            <td>
+              <button type="button" (click)="acceptApp(app)"
+                style="color: limegreen;" class="btn me-md-2 ">Accept <i class="icofont-ui-check"></i></button>
+                <button type="button" (click)="refuseApp(app)"
+                style="color: rgb(255, 166, 0);" class="btn me-md-2 ">Refuse <i class="icofont-ui-close"></i></button>  
+              <button (click)="deleteApp(app._id)" type="button" style="color: red;" class="btn  btn-xs">Delete <i
+                  class="icofont-ui-delete"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <div class="d-flex justify-content-center paginator text-dark">
+        <pagination-controls id="paginator2" (pageChange)="appPage = $event"></pagination-controls>
+    </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="contact-form-area">
+          <div class="container-fluid">
+            <form id="contactForm" novalidate="true" [formGroup]="jobToUpdate">
+              <div class="row contact-wrap">
+                <div class="col-sm-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Job Title</label>
+                    <input formControlName="title" type="text" name="name" id="name" class="form-control" required=""
+                      data-error="Please enter your name" >
+                    
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Vacancies</label>
+                    <input formControlName="postes" type="number"  class="form-control" required=""
+                      data-error="Please enter your email" placeholder="Your Email">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Salary($)</label>
+                    <input formControlName="salary" type="number" name="phone_number" id="phone_number" required=""
+                      data-error="Please enter your number" class="form-control" placeholder="Your Phone">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                  <div class="form-group">
+                    <label>Expiration date</label>
+                    <input formControlName="expiration_date" type="date" id="msg_subject" class="form-control" required=""
+                      data-error="Please enter your subject" placeholder="Subject">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea formControlName="description" class="form-control" id="message" cols="30" rows="8" required=""
+                      data-error="Write your message" placeholder="Job Description"></textarea>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="update()" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade " id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Letter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p *ngIf="!letter; else letterExist">there is no letter found</p>
+          <ng-template #letterExist>
+            <p>{{letter}}</p>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

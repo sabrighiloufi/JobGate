@@ -1,0 +1,88 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Job Test</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Job Test</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="job-area job-area-two pt-100">
+    <div class="container">
+        <h1 class="text-center pb-5">Job Test</h1>
+        <div class="row">
+            <div class="login-wrap">
+                <div class="row ">
+                    <form>
+                        <div class="question " *ngFor="let question of job?.test.test; let index = index">
+                            <div class="py-2 h5"><b>Q{{index+1}}. {{question.question}}</b></div>
+                            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                                <label class="options"
+                                    *ngFor="let response of randomizeArray(question.responses); let i= index">
+
+                                    {{ response.response }}
+
+                                    <input type="radio" (change)="changeRes($event, question.question)"
+                                        name="{{question._id}}" value=" {{ response.response}} ">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="text-center col-2 ">
+                <a class="job-details-btn" type="button" (click)="applyNow()">Valid & Apply</a>
+            </div>
+            <div class="text-center col-4 alert alert-info" role="alert" *ngIf="submitted">
+                You Get {{score}}/100
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+  <!-- Modal -->
+  <div *ngIf="user" class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload cv</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form >
+            Upload CV
+            <input name="cv"  type="file"  class="form-control mt-2">
+            Letter:
+            <textarea formControlName="letter" rows="5" class="form-control mt-2"></textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button"   data-bs-dismiss="modal" class="btn btn-success">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 

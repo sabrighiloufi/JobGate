@@ -1,0 +1,180 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Job Details</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Job Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="job-details-area pt-100">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                <div class="job-details-item">
+                    <div class="job-description d-flex justify-content-center">
+                        <h2>{{job?.title}}</h2>                        
+                    </div>
+                    <div class="job-description">
+                        <h2>Job Description</h2>
+                        <p>{{job?.description}}</p>
+                        
+                    </div>
+                    <div class="job-knowledge">
+                        <h2>Required Knowledge, Skills, and Abilities</h2>
+                        <ul>
+                            <li *ngFor="let skill of job?.skills">
+                                <i class="icofont-hand-drawn-right"></i>
+                                {{skill.skillname}}
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="job-knowledge">
+                        <h2>Contrat Types</h2>
+                        <ul>
+                            <li *ngFor="let contract of job?.contract_types">
+                                <i class="icofont-hand-drawn-right"></i>
+                                {{contract.name}}
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <a *ngIf="job?.test; else whithoutTest" type="button" class="job-details-btn"
+                        [routerLink]="['/test', job._id]"><i class="icofont-list"></i> Apply</a>
+                         <ng-template #whithoutTest>
+                         <a  type="button" data-bs-toggle="modal" class="job-details-btn"
+                            data-bs-target="#exampleModal">Apply</a>
+                    </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="job-details-item">
+                    <div class="job-overview">
+                        <h3>Overview</h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-dollar"></i>
+                                <p>Offered Salary</p>
+                                <span>${{job?.salary}}</span>
+                            </li>
+                            <li>
+                                <i class="icofont-filter"></i>
+                                <p>Type</p>
+                                <span>{{job?.type}}</span>
+                            </li>
+                            <li>
+                                <i class="icofont-calendar"></i>
+                                <p>Dead Line</p>
+                                <span>{{job?.expiration_date}}</span>
+                            </li>
+                            <li>
+                                <i class="icofont-users-alt-3"></i>
+                                <p>Hiring Insights </p>
+                                <span>{{job?.postes}} candidate(s)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="job-overview job-company">
+                        <h3>Company Address</h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-company"></i>
+                                <span>{{job?.company.fullname}}</span>
+                            </li>
+                            <li>
+                                <i class="icofont-location-pin"></i>
+                                <span>{{job?.company.address}}</span>
+                            </li>
+                            <li>
+                                <i class="icofont-ui-call"></i>
+                                <a href="tel:+07554332322">Call : {{job?.company.phone}}</a>
+                            </li>
+                            <li>
+                                <i class="icofont-ui-email"></i>
+                                <a href="mailto:hello@gable.com">{{job?.company.email}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container bootstrap snippets bootdey border ">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <h2 class="mt-5">Comments</h2>
+                    <hr/>
+                    <ul class="comments">
+                        <li class="clearfix" *ngIf="job?.comments?.length == 0">
+                            <p class="text-dark"> No comment found</p>
+                          </li>
+                    <li class="clearfix" *ngFor="let comment of job?.comments">
+                      <img src="http://localhost:4000/getImage/{{comment.candidate.image}}" class="avatar" alt="">
+                      <div class="post-comments">
+                          <p class="meta">{{comment.createdAt | date }} <a [routerLink]="['/candidate-profile', comment.candidate._id]">{{comment.candidate.fullname}}</a></p>
+                          <p>
+                              {{comment.comment}}
+                          </p>
+                      </div>
+                    </li>
+                   
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 blog mt-2">
+                <form [formGroup]="commentForm">
+                <textarea formControlName="comment" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="type your comment here!"></textarea>
+                </form>   
+                <a type="button" (click)="addComment()" class="btn mt-3 mb-3" style="background-color: #56cc5a;color: white;"> Comment <i class="icofont-paper-plane"></i></a>
+                 
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="user" class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload cv</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="appForm">
+                    Upload CV
+                    <input name="cv" (change)="handleFileInput($event)" type="file" class="form-control mt-2">
+                    Letter:
+                    <textarea formControlName="letter" rows="5" class="form-control mt-2"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="ApplyToJob()" type="button" data-bs-dismiss="modal" class="btn btn-success">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>

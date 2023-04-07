@@ -1,0 +1,329 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Create Account</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Create Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="create-account-area pt-100 pb-100">
+    <div class="container">
+        
+        
+        <div class="create-photo">
+            <div class="already-create">
+                <span>Already create an account?</span>
+                <a routerLink="/login">Sign In</a>
+            </div>
+                
+                <div class="login-wrap">
+                    <div class="row">
+                        
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="jobseeker-item">
+                                <div class="jobseeker-icon">
+                                    <i class="flaticon-job-search"></i>
+                                </div>
+                                <div class="jobseeker-inner text-white">
+                                    <span>Candidate</span>
+                                    <h3>Sign Up as a <input type="radio"
+                                        class="btn-check"
+                                        name="btnradio"
+                                        id="gfg" 
+                                        (change)="showCandidateForm()">
+                                    <label class="btn btn-outline-light"
+                                        for="gfg">
+                                        Candidate
+                                    </label></h3>
+                                </div>
+                
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="jobseeker-item">
+                                <div class="jobseeker-icon">
+                                    <i class="flaticon-recruitment"></i>
+                                </div>
+                                <div class="jobseeker-inner text-white">
+                                    <span>Employer</span>
+                                    <h3>Sign Up as a <input type="radio"
+                                        class="btn-check"
+                                        name="btnradio"
+                                        id="gfg2"
+                                        (change)="showCompanyForm()">
+                                    <label class="btn btn-outline-light"
+                                        for="gfg2">
+                                        Employer
+                                    </label></h3>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+        </div>
+        <div class="create-information" *ngIf="candidateInfo == true">
+            <form [formGroup]="candidateForm">
+                
+                <h3>Candidate Registration</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Full Name<span style="color:red;">*</span></label>
+                            <input formControlName="fullname" type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }">
+                            <div *ngIf="submitted && f['fullname'].errors" class="invalid-feedback">
+                                <div *ngIf="f['fullname'].errors['required']">Fullname is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Email<span style="color:red;">*</span></label>
+                            <input formControlName="email" type="email" class="form-control"
+                             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                             <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Password<span style="color:red;">*</span></label>
+                            <input formControlName="password" type="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                <div *ngIf="f['password'].errors['minlength']">Password must be at least 8 characters</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Confirm Password<span style="color:red;">*</span></label>
+                            <input formControlName="confirmPassword" type="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
+                            <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+                                <div *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</div>
+                                <div *ngIf="f['confirmPassword'].errors['matching']">
+                                    Confirm Password does not match
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Desired Job<span style="color:red;">*</span></label>
+                            <input formControlName="desired_job" type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['desired_job'].errors }">
+                            <div *ngIf="submitted && f['desired_job'].errors" class="invalid-feedback">
+                                <div *ngIf="f['desired_job'].errors['required']">desired job is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Upload photo</label>
+                            <input name="photo" (change)="handleFileInput($event)" type="file" class="form-control form-control-lg">
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>About me</label>
+                            <textarea formControlName="aboutme" id="your_message" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="text-left">
+                    <button (click)="registerCandidate()" type="submit" class="btn create-ac-btn text-white">Register</button>
+                </div>
+            </form>
+        </div>
+        <div class="create-education" *ngIf="companyInfo == true">
+            <form [formGroup]="companyForm">
+                
+                <h3>Company Registration</h3>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Full Name<span style="color:red;">*</span></label>
+                            <input formControlName="fullname" type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && companyErr['fullname'].errors }">
+                            <div *ngIf="submitted && companyErr['fullname'].errors" class="invalid-feedback">
+                                <div *ngIf="companyErr['fullname'].errors['required']">Fullname is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Email<span style="color:red;">*</span></label>
+                            <input formControlName="email" type="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && companyErr['email'].errors }">
+                            <div *ngIf="submitted && companyErr['email'].errors" class="invalid-feedback">
+                               <div *ngIf="companyErr['email'].errors['required']">Email is required</div>
+                               <div *ngIf="companyErr['email'].errors['email']">Email is invalid</div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Password<span style="color:red;">*</span></label>
+                            <input formControlName="password" type="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && companyErr['password'].errors }">
+                            <div *ngIf="submitted && companyErr['password'].errors" class="invalid-feedback">
+                                <div *ngIf="companyErr['password'].errors['required']">Password is required</div>
+                                <div *ngIf="companyErr['password'].errors['minlength']">Password must be at least 8 characters</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Confirm Password<span style="color:red;">*</span></label>
+                            <input formControlName="confirmPassword" type="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && companyErr['confirmPassword'].errors }">
+                            <div *ngIf="submitted && companyErr['confirmPassword'].errors" class="invalid-feedback">
+                                <div *ngIf="companyErr['confirmPassword'].errors['required']">Confirm Password is required</div>
+                                <div *ngIf="companyErr['confirmPassword'].errors['matching']">
+                                    Confirm Password does not match
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Address<span style="color:red;">*</span></label>
+                            <input formControlName="address" type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && companyErr['address'].errors }">
+                            <div *ngIf="submitted && companyErr['address'].errors" class="invalid-feedback">
+                                <div *ngIf="companyErr['address'].errors['required']">address is required</div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Upload Logo</label>
+                            <input name="photo" (change)="handleFileInput($event)" type="file" class="form-control form-control-lg">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Phone<span style="color:red;">*</span></label>
+                            <input formControlName="phone" type="text" class="form-control"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>website</label>
+                            <input formControlName="website" type="text" class="form-control form-control-lg">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea formControlName="description" id="your_message" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="text-left">
+                    <button (click)="registerCompany()"  type="submit" class="btn create-ac-btn text-white">Register</button>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="create-skills">
+            <div class="create-skills-wrap">
+                <div class="create-skills-left">
+                    <h3>Skill</h3>
+                </div>
+                <div class="create-skills-right">
+                    <a href="#">Edit</a>
+                    <a href="#">Add Skill</a>
+                </div>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="skill">
+                            <p>Percentage</p>
+                            <div class="skill-bar skill1 wow slideInLeft animated"
+                                style="visibility: hidden; animation-name: none;">
+                                <span class="skill-count1">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="create-skills">
+            <div class="create-skills-wrap">
+                <div class="create-skills-left">
+                    <h3>Social Links</h3>
+                </div>
+                <div class="create-skills-right">
+                    <a href="#">Edit</a>
+                    <a href="#">Add New</a>
+                </div>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Facebook</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Instagram</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Linedin</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Dribbble</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> -->
+        
+    </div>
+</div>

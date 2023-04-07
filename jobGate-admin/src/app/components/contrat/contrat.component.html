@@ -1,0 +1,96 @@
+<div class="content-body" style="min-height: 788px;">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a routerLink="/dashboard">JobGate</a></li>
+                <li class="breadcrumb-item"><a>Contract Types</a></li>
+            </ol>
+        </div>
+        <!-- row -->
+
+
+        <div class="row">
+            
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Contract Types</h4>
+                        <button routerLink="/dashboard/add-contract" type="submit" class="btn btn-primary ">Add Contract</button>
+                    </div>
+                    <div class="card-body">
+                       
+                        <div class="table-responsive">
+                            <div id="example3_wrapper" class="dataTables_wrapper no-footer">
+                                <div class="dataTables_length" id="example3_length" style="display:inline;float:left;">
+                                    <label>Show 
+                                        <select [(ngModel)]="contractPerPage" name="example3_length" aria-controls="example3" class="">
+                                            <option value="5" [selected]>5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                        </select> contracts</label>
+                                    </div>
+                                    <div id="example3_filter" class="dataTables_filter" style="display:inline;
+                                    float:right;">
+                                        <label>
+                                            <input [(ngModel)]="search_name" type="search" class="" placeholder="Search" aria-controls="example3">
+                                        </label>
+                                    </div>
+                            <table id="example3" class="display table-responsive-lg dataTable no-footer" role="grid" aria-describedby="example3_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 89.9844px;">#</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" aria-label="Department: activate to sort column ascending" style="width: 108.312px;">Name</th>
+                
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 56.0469px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                   
+                                <tr role="row" class="odd" *ngFor="let c of contracts | searchnamecontract:search_name | paginate: { itemsPerPage: contractPerPage, currentPage: p } ; let index=index">
+                                        <td>{{index+1}}</td>
+                                        <td>{{c.name}}</td>
+                                        
+                                        <td>
+                                            <div class="d-flex">
+                                                <a (click)="setContractUpdate(c)" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <a (click)="deleteContracts(c._id)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            </div>												
+                                        </td>												
+                                    </tr></tbody>
+                            </table>
+                            <pagination-controls class="pagination justify-content-center" (pageChange)="p = $event"></pagination-controls>
+ 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="basicModal" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form [formGroup]="newContract">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Contract</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="name">Name</label>
+                <input formControlName="name" type="text" id="name"class="form-control input-default">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button (click)="update()" data-bs-dismiss="modal" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

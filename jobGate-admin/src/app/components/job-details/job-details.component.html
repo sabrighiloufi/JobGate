@@ -1,0 +1,105 @@
+<div class="content-body" style="min-height: 788px;">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a routerLink="/dashboard">JobGate</a></li>
+                <li class="breadcrumb-item"><a>Job-details</a></li>
+            </ol>
+        </div>
+        <div class="row d-flex justify-content-center" >
+            <!-- job detail -->
+            <div class="col-xl-5 col-xxl-5">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card d-sm-flex flex-xl-column flex-md-row">
+                            <div class="card-header">
+                                <h4 class="card-title">Job Details</h4>
+                            </div>
+                            <div class="card-body border-bottom text-center col-xl-12 col-md-6">
+                                <img class="mb-4" width="134" height="134" viewBox="0 0 134 134" fill="none" src="http://localhost:4000/getImage/{{job?.company.image}}">
+                                
+                                <h4 class="fs-22 text-black font-w600 mb-1">{{job?.title}}</h4>
+                                <p>Deadline: {{job?.expiration_date}}</p>
+                                <p>Contract types:  <span *ngFor="let type of job?.contract_types">{{type.name}},</span></p>
+                                <p >Salary: ${{job?.salary}}</p>
+                                <p>Vacant jobs: {{job?.postes}}</p>
+                                <a href="javascript:void(0);" class="btn btn-outline-primary d-block btn-rounded">Apply</a>
+                                <div class="row mt-5">
+                                   
+                                    <div class="col-xl-12">
+                                        <div class="media">
+                                            <svg class="me-3 min-w46" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="46" height="46" rx="23" fill="#ECECEC"></rect>
+                                                <path d="M23 15C19.6227 15 16.875 17.7477 16.875 21.125C16.875 22.2061 17.1606 23.2689 17.701 24.1986C17.8269 24.4153 17.9677 24.6266 18.1196 24.8264L22.7339 31H23.2661L27.8804 24.8264C28.0322 24.6266 28.173 24.4154 28.299 24.1986C28.8394 23.2689 29.125 22.2061 29.125 21.125C29.125 17.7477 26.3773 15 23 15ZM23 23.1562C21.88 23.1562 20.9688 22.245 20.9688 21.125C20.9688 20.005 21.88 19.0938 23 19.0938C24.12 19.0938 25.0312 20.005 25.0312 21.125C25.0312 22.245 24.12 23.1562 23 23.1562Z" fill="#808080"></path>
+                                            </svg>
+                                            <div class="media-body text-left">
+                                                <h4 class="fs-18 text-black font-w600 mb-0">{{job?.location.address}}, {{job?.location.city}}, {{job?.location.country}}</h4>
+                                                <span class="fs-14">Location</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body col-xl-12 col-md-6 border-left ">
+                                <h6 class="fs-16 text-black font-w600 mb-4">About Job</h6>
+                                <p class="fs-14">{{job?.description}}.</p>
+                                
+                            </div>
+                            <div class="row d-flex text-center mb-1">
+                                <div class="col-sm-6">
+                                    <a routerLink="/jobs"  href="javascript:void(0);" class="btn btn-link btn-rounded me-auto">Jobs</a>
+                                </div>
+                                <div class="col-sm-6 mt-2 ">
+
+                                    <button *ngIf="job?.confirmed == false" (click)="confirmJob(job)" type="button" class="btn  btn-success btn-xs me-2" data-toggle="tooltip" title="confirm this job"><i class="fa fa-check"></i></button>
+                                    <button (click)="deleteJob(job._id)"  type="button" class="btn  btn-danger btn-xs" data-toggle="tooltip" title="delete this job"> <i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!--end job detail -->
+
+            <!-- comments -->
+            <div class="col-xl-5 col-xxl-5">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card d-sm-flex flex-xl-column flex-md-row">
+                            <div class="card-header">
+                                <h4 class="card-title">Comments</h4>
+                            </div>
+                            
+                            <div  class="card-body border-bottom text-left col-xl-12 col-md-6 overflow-auto p-3" style="width: 100%; height: 800px;">
+                                <div class="comment-widgets">
+                                    <!-- Comment Row -->
+                                    <div *ngIf="job.comments.length == 0" class="d-flex flex-row comment-row mt-1">
+                                    no comment found  
+                                    </div>
+                                    <div *ngFor="let comment of job.comments" class="d-flex flex-row comment-row mt-1">
+                                        <div class="p-2"><img src="http://localhost:4000/getImage/{{comment.candidate.image}}" alt="user" width="50" class="rounded-circle"></div>
+                                        <div class="comment-text w-100">
+                                            <h6 class="font-medium">{{comment.candidate.fullname}} </h6> <span class="m-b-15 d-block">{{comment.comment}} </span>
+                                            <div class="comment-footer"> <small class="text-muted float-right">{{comment.createdAt  | date: 'dd/MM/yyyy hh:mm'}}</small>
+                                                <button (click)="deleteComment(comment._id)" type="button" class="btn tp-btn-light btn-danger btn-xs">Delete</button> </div>
+                                        </div>
+                                    
+                            </div>
+                            <div class="card-body col-xl-12 col-md-6 border-left ">
+                                <div class="input-group mb-3">
+                                    <textarea type="text" class="form-control" placeholder="Type here your comment"></textarea>
+                                    <button class="btn btn-primary" type="button"><i class="flaticon-381-send-2"></i></button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end comments -->
+        </div>
+        
+    </div>
+</div>

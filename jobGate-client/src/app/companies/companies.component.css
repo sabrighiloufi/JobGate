@@ -1,0 +1,15 @@
+
+.paginator /deep/ .ngx-pagination .current {
+    background: #38a745;
+    border-radius: 50px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.paginator /deep/ .ngx-pagination a:hover, .ngx-pagination button:hover {
+    background:#b3b2b2;
+    border-radius: 50px;
+    padding-left: 9px;
+    padding-right: 9px;
+    text-decoration: none;
+}

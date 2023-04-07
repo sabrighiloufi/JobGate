@@ -1,0 +1,100 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Company List</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Company List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="companies-area companies-area-two pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="login-wrap">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="flaticon-job-search"></i>
+                            </div>
+                            <div class="jobseeker-inner text-white">
+                                <span>Search Company</span>
+                                <input [(ngModel)]="searchCompany" type="text" class="form-control"
+                                    placeholder="Search By Name, Location, ...">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="icofont-filter"></i>
+                            </div>
+                            <div class="jobseeker-inner text-white">
+                                <span>Speciality</span>
+                                <select (change)="getCompaniesBySpeciality($event)" class="form-control">
+                                    <option value="all">All</option>
+                                    <option value="{{speciality._id}}" *ngFor="let speciality of specialties">
+                                        {{speciality.name}}</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" *ngIf="companies?.length <= 0">
+            <section class="error-area">
+                <div class="error-item">
+                    <div class="d-table">
+                        <div class="d-table-cell">
+                            <div class="error-text">
+                                <h1>404!</h1>
+                                <p>Sorry! No company Found</p>
+                                <span>Oops!  The company you are looking for does not exit.</span>
+                                <a routerLink="/">Return to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div> -->
+        <div class="row">
+
+            <div class="col-sm-8 col-lg-3"
+                *ngFor="let company of companies | searchcompany: searchCompany | paginate: { itemsPerPage: 8, currentPage: p }">
+                <div class="companies-item wow fadeInUp animated" data-wow-delay=".3s"
+                    style="visibility: visible; animation-delay: 0.3s;">
+                    <img src="http://localhost:4000/getImage/{{company.image}}" alt="Companies">
+                    <h3>
+                        <a  [routerLink]="['/company-details', company._id]">{{company.fullname}}</a>
+                    </h3>
+                    <p>
+                        <i class="icofont-location-pin"></i>
+                        {{company.address}}
+                    </p>
+                    <a  [routerLink]="['/company-details', company._id]" class="companies-btn">details</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center paginator text-dark">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</section>

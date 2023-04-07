@@ -1,0 +1,112 @@
+<div class="page-title-area text-white" >
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>Submit Test</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>Submit Test</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="create-account-area pt-100 pb-100">
+    <div class="container">
+
+        <div class="create-education">
+            <div class="create-education-wrap">
+                <div class="create-education-left">
+                    <h3>Question</h3>
+                </div>
+                <div class="create-education-right">
+                    <a type="submit" (click)="pushQuestion()">Add Question</a>
+                </div>
+            </div>
+            <form [formGroup]="questionForm">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Question</label>
+                            <input formControlName="question" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Response 1 and correct response</label>
+                            <input formControlName="response1" type="text" class="form-control border border-success">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Response 2</label>
+                            <input formControlName="response2" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Response 3</label>
+                            <input formControlName="response3" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Response 4</label>
+                            <input formControlName="response4" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+       
+    </div>
+</div>
+
+<section class="faq-area " *ngIf="test.length > 0">
+    <div class="container">
+        <div class="row faq-wrap">
+            <div class="col-lg-12">
+                <div class="faq-head">
+                    <h2>Job test </h2>
+                    
+                </div>
+                <div class="accordion" id="accordionExample" *ngFor="let item of test; let i = index">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                         Q{{i+1}}: {{item.question}}
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="row" *ngFor="let response of item.responses; let index = index">
+                                <div class="text-success" *ngIf="response.response == item.correctResponse">response {{index+1}}(correct):{{response.response}}
+                                </div>
+                                  <div *ngIf="response.response != item.correctResponse">response {{index+1}}: {{response.response}}
+                                  </div>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+              
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="job-details-btn" type="button" (click)="submitTest()">Submit Test</a>
+        </div>
+    </div>
+</section>
+
+ 

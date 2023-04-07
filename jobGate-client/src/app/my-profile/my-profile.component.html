@@ -1,0 +1,235 @@
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-text">
+                    <h2>My Profile</h2>
+                    <ul>
+                        <li>
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li>
+                            <i class="icofont-simple-right"></i>
+                        </li>
+                        <li>My Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-area pt-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <div class="dashboard-img">
+                    <img src="http://localhost:4000/getImage/{{user?.image}}" alt="Dashboard">
+                    <h3>{{user?.fullname}}</h3>
+                    <p>{{user?.email}}</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="dashboard-nav">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home" aria-selected="true">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile"
+                                role="tab" aria-controls="pills-profile" aria-selected="false">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a *ngIf="isCandidate()" 
+                            class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Saved Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="logout()" type="button" >Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="create-information" *ngIf="isCandidate()">
+                    <h3>Candidate Information</h3>
+                    <form>
+                        <div class="create-information-btn">
+                            
+                            <input name="cv" (change)="handleFileInput($event)" type="file" class="form-control ">
+                            <a (click)="uploadCV()" type="button" class="text-white mt-3">Upload Your CV</a>
+                        </div>
+
+                    </form>
+                    <form [formGroup]="candidateForm">
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input formControlName="fullname" type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Your Email</label>
+                                    <input formControlName="email" type="email" class="form-control">
+                                </div>
+                            </div>
+                           
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Desired Job</label>
+                                    <input formControlName="desired_job" type="text" class="form-control" >
+                                </div>
+                            </div>
+                           
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>About Me</label>
+                                    <textarea formControlName="aboutme" id="your_message" class="form-control" rows="8"
+                                        ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="create-information-btn">
+                        <a  type="button" class="text-white" (click)="updateCandidate()">Update</a>
+                        
+                    </div>
+                </div>
+                <div class="create-information" *ngIf="isCompany()">
+                    <form [formGroup]="companyForm">
+                        <h3>Company Information</h3>
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input formControlName="fullname" type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Your Email</label>
+                                    <input formControlName="email" type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Website</label>
+                                    <input formControlName="website" type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Your Phone</label>
+                                    <input formControlName="phone" type="text" class="form-control" >
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Address:</label>
+                                    <input formControlName="address" type="text" class="form-control"
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea formControlName="description" id="your_message" class="form-control" rows="8"
+                                        ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="create-information-btn">
+                        <a type="button" class="text-white" (click)="updateCompany()">Update</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- change password -->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="change-password-area">
+                    <h2>Change Your Password</h2>
+                    <form [formGroup]="changePwdForm">
+                        <div class="form-group">
+                            <label>Current Password:</label>
+                            <input formControlName="password" type="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password:</label>
+                            <input formControlName="newpassword" type="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password:</label>
+                            <input formControlName="confirmNewPassword" type="password" class="form-control">
+                        </div>
+                        <div class="text-left">
+                            <button (click)="changePwd()" type="submit" class="btn change-pass-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- saved job for candidate -->
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="dashboard-saved-job">
+                    
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-end">
+                                <button type="button" (click)="deleteAllfavourite()" class="btn btn-danger">delete All<i class="icofont-ui-delete"></i></button>
+                            </div>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6" *ngFor="let favourite of favourites | paginate: { itemsPerPage: 6, currentPage: p }">
+                            <div class="job-item wow fadeInUp animated" data-wow-delay=".3s"
+                                style="visibility: visible; animation-delay: 0.3s;">
+                                <img  width="50" height="50" src="http://localhost:4000/getImage/{{favourite.offer.company.image}}" alt="Job">
+                                <div class="job-inner align-items-center">
+                                    <div class="job-inner-left">
+                                        <h3>
+                                            <a [routerLink]="['/job-details', favourite.offer._id]">{{favourite.offer.title}}</a> &nbsp; <button type="button" (click)="deletefavourite(favourite._id)" class="btn btn-danger btn-circle"><i class="icofont-ui-delete"></i></button>
+                                        </h3> 
+                                        <a class="company" [routerLink]="['/company-details', favourite.offer.company._id]">{{favourite.offer.company.fullname}}</a>
+                                        <ul>
+                                            <li>
+                                                <i class="icofont-money-bag"></i>
+                                                ${{favourite.offer.salary}}
+                                            </li>
+                                            <li>
+                                                <i class="icofont-location-pin"></i>
+                                                {{favourite.offer.location.address}},  {{favourite.offer.location.city}}, {{favourite.offer.location.country}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="job-inner-right">
+                                        <ul>
+                                            <li>
+                                                <a href="create-account.html">Apply</a>
+                                            </li>
+                                            <li>
+                                                <span>{{favourite.offer.type}}</span>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center paginator text-dark">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
