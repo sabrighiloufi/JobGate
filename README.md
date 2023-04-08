@@ -1,6 +1,6 @@
 # JobGate-CRUD-Angular14-MEAN-Stack
 
-A basic job board application developed on MEAN Stack with Angular version 14.
+A job board application developed on MEAN Stack with Angular version 14.
 
 ## Technologies Used
 
